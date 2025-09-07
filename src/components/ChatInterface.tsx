@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageCircle, Send, Mic, MicOff, Bot, User } from "lucide-react";
+import { getTranslation } from "@/utils/translations";
 
 interface Message {
   id: string;
@@ -17,9 +18,7 @@ export function ChatInterface({ language }: { language: string }) {
     {
       id: '1',
       type: 'bot',
-      content: language === 'hi' ? 
-        'नमस्ते! मैं आपका AI कृषि सहायक हूं। आप मुझसे फसल, बीमारी, उर्वरक और मौसम के बारे में कुछ भी पूछ सकते हैं।' :
-        'Hello! I\'m your AI farming assistant. You can ask me anything about crops, diseases, fertilizers, and weather.',
+      content: getTranslation('chatWelcome', language),
       timestamp: new Date()
     }
   ]);

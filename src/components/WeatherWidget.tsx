@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Cloud, CloudRain, Sun, Wind, Droplets, Thermometer } from "lucide-react";
+import { getTranslation } from "@/utils/translations";
 
 export function WeatherWidget({ language }: { language: string }) {
   const weatherData = {
@@ -11,9 +12,9 @@ export function WeatherWidget({ language }: { language: string }) {
       pressure: 1013
     },
     forecast: [
-      { day: language === 'hi' ? 'आज' : 'Today', temp: 28, condition: 'partly_cloudy', rain: 20 },
-      { day: language === 'hi' ? 'कल' : 'Tomorrow', temp: 30, condition: 'sunny', rain: 5 },
-      { day: language === 'hi' ? 'परसों' : 'Day After', temp: 26, condition: 'rainy', rain: 85 },
+      { day: getTranslation('today', language), temp: 28, condition: 'partly_cloudy', rain: 20 },
+      { day: getTranslation('tomorrow', language), temp: 30, condition: 'sunny', rain: 5 },
+      { day: getTranslation('dayAfter', language), temp: 26, condition: 'rainy', rain: 85 },
     ]
   };
 
@@ -31,16 +32,16 @@ export function WeatherWidget({ language }: { language: string }) {
   };
 
   const getConditionText = (condition: string) => {
-    const conditions = language === 'hi' ? {
-      sunny: 'धूप',
-      rainy: 'बारिश',
-      partly_cloudy: 'आंशिक बादल'
-    } : {
-      sunny: 'Sunny',
-      rainy: 'Rainy',
-      partly_cloudy: 'Partly Cloudy'
-    };
-    return conditions[condition as keyof typeof conditions];
+    switch (condition) {
+      case 'sunny':
+        return getTranslation('sunny', language);
+      case 'rainy':
+        return getTranslation('rainy', language);
+      case 'partly_cloudy':
+        return getTranslation('partlyCloudy', language);
+      default:
+        return getTranslation('sunny', language);
+    }
   };
 
   return (
@@ -48,7 +49,7 @@ export function WeatherWidget({ language }: { language: string }) {
       <CardHeader>
         <CardTitle className="text-primary flex items-center gap-2">
           {getWeatherIcon(weatherData.current.condition)}
-          {language === 'hi' ? 'मौसम की जानकारी' : 'Weather Information'}
+          {getTranslation('weatherInfo', language)}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -71,7 +72,7 @@ export function WeatherWidget({ language }: { language: string }) {
             <Droplets className="h-4 w-4 text-sky" />
             <div>
               <div className="text-sm text-muted-foreground">
-                {language === 'hi' ? 'नमी' : 'Humidity'}
+                {getTranslation('humidity', language)}
               </div>
               <div className="font-semibold">{weatherData.current.humidity}%</div>
             </div>
@@ -81,7 +82,7 @@ export function WeatherWidget({ language }: { language: string }) {
             <Wind className="h-4 w-4 text-earth" />
             <div>
               <div className="text-sm text-muted-foreground">
-                {language === 'hi' ? 'हवा' : 'Wind'}
+                {getTranslation('wind', language)}
               </div>
               <div className="font-semibold">{weatherData.current.windSpeed} km/h</div>
             </div>
@@ -91,7 +92,7 @@ export function WeatherWidget({ language }: { language: string }) {
         {/* 3-Day Forecast */}
         <div className="space-y-2">
           <h4 className="font-semibold text-primary">
-            {language === 'hi' ? '3 दिन का पूर्वानुमान' : '3-Day Forecast'}
+            {getTranslation('forecast3Day', language)}
           </h4>
           {weatherData.forecast.map((day, index) => (
             <div key={index} className="flex items-center justify-between p-2 bg-muted rounded">
@@ -102,7 +103,7 @@ export function WeatherWidget({ language }: { language: string }) {
               <div className="text-right">
                 <div className="font-semibold">{day.temp}°C</div>
                 <div className="text-xs text-muted-foreground">
-                  {day.rain}% {language === 'hi' ? 'बारिश' : 'rain'}
+                  {day.rain}% {getTranslation('rain', language)}
                 </div>
               </div>
             </div>
@@ -116,13 +117,10 @@ export function WeatherWidget({ language }: { language: string }) {
               <CloudRain className="h-4 w-4 text-earth mt-0.5" />
               <div>
                 <div className="font-semibold text-earth">
-                  {language === 'hi' ? 'कृषि चेतावनी' : 'Farming Alert'}
+                  {getTranslation('farmingAlert', language)}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {language === 'hi' ? 
-                    'भारी बारिश की संभावना। फंगीसाइड का छिड़काव करें।' :
-                    'Heavy rain expected. Apply fungicide spray.'
-                  }
+                  {getTranslation('heavyRainExpected', language)}
                 </div>
               </div>
             </div>

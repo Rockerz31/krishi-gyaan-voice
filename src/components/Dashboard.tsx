@@ -20,17 +20,10 @@ import { DiseaseDetection } from "@/components/DiseaseDetection";
 import { SoilMonitoring } from "@/components/SoilMonitoring";
 import { WeatherWidget } from "@/components/WeatherWidget";
 import { Profile } from "@/components/Profile";
+import { languages, getTranslation } from "@/utils/translations";
 import farmerHero from "@/assets/farmer-hero.jpg";
 
 type DashboardSection = 'home' | 'chat' | 'disease' | 'soil' | 'profile';
-
-const languages = [
-  { code: 'en', name: 'English' },
-  { code: 'hi', name: 'हिंदी' },
-  { code: 'pa', name: 'ਪੰਜਾਬੀ' },
-  { code: 'mr', name: 'मराठी' },
-  { code: 'gu', name: 'ગુજરાતી' },
-];
 
 export function Dashboard() {
   const [activeSection, setActiveSection] = useState<DashboardSection>('home');
@@ -59,7 +52,7 @@ export function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Sprout className="h-8 w-8 text-primary" />
-              <h1 className="text-2xl font-bold text-primary">FarmWise AI</h1>
+              <h1 className="text-2xl font-bold text-primary">{getTranslation('appTitle', selectedLanguage)}</h1>
             </div>
             
             <div className="flex items-center gap-4">
@@ -71,7 +64,7 @@ export function Dashboard() {
               >
                 {languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
-                    {lang.name}
+                    {lang.flag} {lang.name}
                   </option>
                 ))}
               </select>
@@ -91,7 +84,7 @@ export function Dashboard() {
           <div className="xl:col-span-1">
             <Card className="shadow-card">
               <CardHeader className="pb-4">
-                <CardTitle className="text-primary text-lg">Navigation</CardTitle>
+                <CardTitle className="text-primary text-lg">{getTranslation('navigation', selectedLanguage)}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 pt-0">
                 <Button 
@@ -100,7 +93,7 @@ export function Dashboard() {
                   onClick={() => setActiveSection('home')}
                 >
                   <Home className="h-4 w-4" />
-                  Home
+                  {getTranslation('home', selectedLanguage)}
                 </Button>
                 <Button 
                   variant={activeSection === 'chat' ? 'hero' : 'ghost'} 
@@ -108,7 +101,7 @@ export function Dashboard() {
                   onClick={() => setActiveSection('chat')}
                 >
                   <MessageCircle className="h-4 w-4" />
-                  Ask AI Assistant
+                  {getTranslation('aiAssistant', selectedLanguage)}
                 </Button>
                 <Button 
                   variant={activeSection === 'disease' ? 'hero' : 'ghost'} 
@@ -116,7 +109,7 @@ export function Dashboard() {
                   onClick={() => setActiveSection('disease')}
                 >
                   <Camera className="h-4 w-4" />
-                  Disease Detection
+                  {getTranslation('diseaseDetection', selectedLanguage)}
                 </Button>
                 <Button 
                   variant={activeSection === 'soil' ? 'hero' : 'ghost'} 
@@ -124,7 +117,7 @@ export function Dashboard() {
                   onClick={() => setActiveSection('soil')}
                 >
                   <BarChart3 className="h-4 w-4" />
-                  Soil Monitoring
+                  {getTranslation('soilMonitoring', selectedLanguage)}
                 </Button>
                 <Button 
                   variant={activeSection === 'profile' ? 'hero' : 'ghost'} 
@@ -132,7 +125,7 @@ export function Dashboard() {
                   onClick={() => setActiveSection('profile')}
                 >
                   <User className="h-4 w-4" />
-                  Profile
+                  {getTranslation('profile', selectedLanguage)}
                 </Button>
               </CardContent>
             </Card>
@@ -162,14 +155,14 @@ function HomeSection({ language }: { language: string }) {
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/60 flex items-center">
             <div className="container mx-auto px-4 sm:px-6 text-primary-foreground">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
-                {language === 'hi' ? 'आपकी फसल की सुरक्षा हमारी प्राथमिकता' : 'Your Crop\'s Health is Our Priority'}
+                {getTranslation('cropHealthPriority', language)}
               </h2>
               <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 max-w-2xl">
-                {language === 'hi' ? 'AI-संचालित सलाह, रोग पहचान और मिट्टी की निगरानी' : 'AI-powered advice, disease detection, and soil monitoring'}
+                {getTranslation('aiPoweredAdvice', language)}
               </p>
               <Button variant="hero" size="lg">
                 <MessageCircle className="h-5 w-5" />
-                {language === 'hi' ? 'अभी सलाह लें' : 'Get Advice Now'}
+                {getTranslation('getAdviceNow', language)}
               </Button>
             </div>
           </div>
@@ -182,7 +175,7 @@ function HomeSection({ language }: { language: string }) {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-crop-foreground font-semibold text-sm sm:text-base">Healthy Crops</p>
+                <p className="text-crop-foreground font-semibold text-sm sm:text-base">{getTranslation('healthyCrops', language)}</p>
                 <p className="text-xl sm:text-2xl font-bold text-crop">85%</p>
               </div>
               <Leaf className="h-6 w-6 sm:h-8 sm:w-8 text-crop" />
@@ -194,8 +187,8 @@ function HomeSection({ language }: { language: string }) {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-earth-foreground font-semibold text-sm sm:text-base">Soil Health</p>
-                <p className="text-xl sm:text-2xl font-bold text-earth">Good</p>
+                <p className="text-earth-foreground font-semibold text-sm sm:text-base">{getTranslation('soilHealth', language)}</p>
+                <p className="text-xl sm:text-2xl font-bold text-earth">{getTranslation('good', language)}</p>
               </div>
               <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-earth" />
             </div>
@@ -206,7 +199,7 @@ function HomeSection({ language }: { language: string }) {
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-primary-foreground font-semibold text-sm sm:text-base">Achievement</p>
+                <p className="text-primary-foreground font-semibold text-sm sm:text-base">{getTranslation('achievement', language)}</p>
                 <p className="text-xl sm:text-2xl font-bold text-primary">★ 4.8</p>
               </div>
               <Award className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
@@ -222,21 +215,21 @@ function HomeSection({ language }: { language: string }) {
         <Card className="shadow-card">
           <CardHeader className="pb-4">
             <CardTitle className="text-primary text-lg">
-              {language === 'hi' ? 'त्वरित कार्य' : 'Quick Actions'}
+              {getTranslation('quickActions', language)}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3 pt-0">
             <Button variant="earth" className="w-full justify-start">
               <Camera className="h-4 w-4" />
-              {language === 'hi' ? 'फसल की तस्वीर लें' : 'Take Crop Photo'}
+              {getTranslation('takeCropPhoto', language)}
             </Button>
             <Button variant="sky" className="w-full justify-start">
               <BarChart3 className="h-4 w-4" />
-              {language === 'hi' ? 'मिट्टी की जांच करें' : 'Check Soil Health'}
+              {getTranslation('soilHealth', language)}
             </Button>
             <Button variant="crop" className="w-full justify-start">
               <MessageCircle className="h-4 w-4" />
-              {language === 'hi' ? 'सलाह के लिए पूछें' : 'Ask for Advice'}
+              {getTranslation('askForAdvice', language)}
             </Button>
           </CardContent>
         </Card>
