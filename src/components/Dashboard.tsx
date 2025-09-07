@@ -86,14 +86,14 @@ export function Dashboard() {
       </header>
 
       <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 lg:gap-6">
           {/* Sidebar Navigation */}
-          <div className="lg:col-span-1">
+          <div className="xl:col-span-1">
             <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="text-primary">Navigation</CardTitle>
+              <CardHeader className="pb-4">
+                <CardTitle className="text-primary text-lg">Navigation</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2">
+              <CardContent className="space-y-2 pt-0">
                 <Button 
                   variant={activeSection === 'home' ? 'hero' : 'ghost'} 
                   className="w-full justify-start"
@@ -139,7 +139,7 @@ export function Dashboard() {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="xl:col-span-3">
             {renderSection()}
           </div>
         </div>
@@ -153,18 +153,18 @@ function HomeSection({ language }: { language: string }) {
     <div className="space-y-6">
       {/* Hero Section */}
       <Card className="overflow-hidden shadow-card">
-        <div className="relative h-64 bg-gradient-nature">
+        <div className="relative h-48 sm:h-56 md:h-64 lg:h-72 bg-gradient-nature">
           <img 
             src={farmerHero} 
             alt="Modern farming with technology" 
             className="w-full h-full object-cover opacity-80"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/60 flex items-center">
-            <div className="container mx-auto px-6 text-primary-foreground">
-              <h2 className="text-4xl font-bold mb-4">
+            <div className="container mx-auto px-4 sm:px-6 text-primary-foreground">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
                 {language === 'hi' ? 'आपकी फसल की सुरक्षा हमारी प्राथमिकता' : 'Your Crop\'s Health is Our Priority'}
               </h2>
-              <p className="text-xl mb-6">
+              <p className="text-base sm:text-lg md:text-xl mb-4 sm:mb-6 max-w-2xl">
                 {language === 'hi' ? 'AI-संचालित सलाह, रोग पहचान और मिट्टी की निगरानी' : 'AI-powered advice, disease detection, and soil monitoring'}
               </p>
               <Button variant="hero" size="lg">
@@ -177,55 +177,55 @@ function HomeSection({ language }: { language: string }) {
       </Card>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card className="shadow-soft border-l-4 border-l-crop">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-crop-foreground font-semibold">Healthy Crops</p>
-                <p className="text-2xl font-bold text-crop">85%</p>
+                <p className="text-crop-foreground font-semibold text-sm sm:text-base">Healthy Crops</p>
+                <p className="text-xl sm:text-2xl font-bold text-crop">85%</p>
               </div>
-              <Leaf className="h-8 w-8 text-crop" />
+              <Leaf className="h-6 w-6 sm:h-8 sm:w-8 text-crop" />
             </div>
           </CardContent>
         </Card>
         
         <Card className="shadow-soft border-l-4 border-l-earth">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-earth-foreground font-semibold">Soil Health</p>
-                <p className="text-2xl font-bold text-earth">Good</p>
+                <p className="text-earth-foreground font-semibold text-sm sm:text-base">Soil Health</p>
+                <p className="text-xl sm:text-2xl font-bold text-earth">Good</p>
               </div>
-              <TrendingUp className="h-8 w-8 text-earth" />
+              <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-earth" />
             </div>
           </CardContent>
         </Card>
         
         <Card className="shadow-soft border-l-4 border-l-primary">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-primary-foreground font-semibold">Achievement</p>
-                <p className="text-2xl font-bold text-primary">★ 4.8</p>
+                <p className="text-primary-foreground font-semibold text-sm sm:text-base">Achievement</p>
+                <p className="text-xl sm:text-2xl font-bold text-primary">★ 4.8</p>
               </div>
-              <Award className="h-8 w-8 text-primary" />
+              <Award className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
       </div>
 
       {/* Weather and Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         <WeatherWidget language={language} />
         
         <Card className="shadow-card">
-          <CardHeader>
-            <CardTitle className="text-primary">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-primary text-lg">
               {language === 'hi' ? 'त्वरित कार्य' : 'Quick Actions'}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-3 pt-0">
             <Button variant="earth" className="w-full justify-start">
               <Camera className="h-4 w-4" />
               {language === 'hi' ? 'फसल की तस्वीर लें' : 'Take Crop Photo'}
