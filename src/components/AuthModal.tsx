@@ -124,8 +124,35 @@ export function AuthModal({ isOpen, onClose, initialTab, onSuccess, selectedLang
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 animate-fade-in">
-      <Card className="w-full max-w-md bg-primary-foreground shadow-glow animate-slide-up">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('data:image/svg+xml,${encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+            <defs>
+              <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:rgb(134,195,85);stop-opacity:1" />
+                <stop offset="50%" style="stop-color:rgb(102,153,51);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(85,136,34);stop-opacity:1" />
+              </linearGradient>
+              <pattern id="crops" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <rect width="100" height="100" fill="none"/>
+                <path d="M20,50 Q30,30 40,50 Q50,70 60,50 Q70,30 80,50" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/>
+                <circle cx="25" cy="45" r="2" fill="rgba(255,255,255,0.15)"/>
+                <circle cx="45" cy="55" r="2" fill="rgba(255,255,255,0.15)"/>
+                <circle cx="65" cy="45" r="2" fill="rgba(255,255,255,0.15)"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#bg)"/>
+            <rect width="100%" height="100%" fill="url(#crops)"/>
+          </svg>
+        `)})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
+      <Card className="w-full max-w-md bg-card/95 backdrop-blur-sm border border-primary/20 shadow-glow animate-slide-up">
         <CardHeader className="relative bg-gradient-primary text-primary-foreground rounded-t-lg">
           <Button 
             variant="ghost" 
