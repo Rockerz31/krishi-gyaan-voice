@@ -13,7 +13,8 @@ import {
   Leaf,
   TrendingUp,
   Award,
-  Sprout
+  Sprout,
+  LogOut
 } from "lucide-react";
 import { ChatInterface } from "@/components/ChatInterface";
 import { DiseaseDetection } from "@/components/DiseaseDetection";
@@ -22,12 +23,19 @@ import { WeatherWidget } from "@/components/WeatherWidget";
 import { Profile } from "@/components/Profile";
 import { languages, getTranslation } from "@/utils/translations";
 import farmerHero from "@/assets/farmer-hero.jpg";
+import { User as SupabaseUser } from "@supabase/supabase-js";
 
 type DashboardSection = 'home' | 'chat' | 'disease' | 'soil' | 'profile';
 
-export function Dashboard() {
+interface DashboardProps {
+  selectedLanguage: string;
+  onLanguageChange: (language: string) => void;
+  onLogout: () => void;
+  user: SupabaseUser | null;
+}
+
+export function Dashboard({ selectedLanguage, onLanguageChange, onLogout, user }: DashboardProps) {
   const [activeSection, setActiveSection] = useState<DashboardSection>('home');
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const renderSection = () => {
     switch (activeSection) {
@@ -59,7 +67,7 @@ export function Dashboard() {
               {/* Language Selector */}
               <select 
                 value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
+                onChange={(e) => onLanguageChange(e.target.value)}
                 className="rounded-md border border-input bg-background px-3 py-1 text-sm"
               >
                 {languages.map((lang) => (
@@ -72,6 +80,16 @@ export function Dashboard() {
               <Button variant="crop" size="sm">
                 <Globe className="h-4 w-4" />
                 Switch Language
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={onLogout}
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
               </Button>
             </div>
           </div>
